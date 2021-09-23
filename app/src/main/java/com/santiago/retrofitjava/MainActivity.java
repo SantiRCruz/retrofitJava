@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
 
-    ArrayList<Users>  = new ArrayList;
+    ArrayList<Users> listaUsuarios = new ArrayList();
     ListView lista;
     ArrayAdapter adaptador;
 
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         referenciar();
-        adaptador = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listaUsuarios);
+        //adaptador = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listaUsuarios);
        // lista.setAdapter(adaptador);
     }
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
          lista = findViewById(R.id.listaUsuarios);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api-autonoma.herokuapp.com/v1/")
+                .baseUrl("https://api-autonoma.herokuapp.com/api/v1/admin/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiService service= retrofit.create(ApiService.class);
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<Users>> call, Response<ArrayList<Users>> response) {
                 listaUsuarios = response.body();
-                Log.e("lista",listaUsuarios.toString());
+                Log.e("lista",response.body().toString());
 
             }
 
